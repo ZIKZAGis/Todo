@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, FC } from "react";
 import CreateTodoField from "./item/CreateTodo";
 import EmptyList from "./EmptyList";
 import List from "./List";
+import { Todo } from "../../types/types";
 
-const Home = () => {
-    const [todos, setTodos] = useState([{
-        id: 0,
-        title: '',
-        completed: false
-    }])
+
+const Home: FC = () => {
+    const [todos, setTodos] = useState<Todo[]>([])
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users/1/todos')
@@ -32,12 +30,12 @@ const Home = () => {
         }
     }, [todos])
     
-    const removeTodo = useCallback((id: number): void => {
+    const removeTodo = (id: number): void => {
         setTodos([...todos].filter(t => t.id !== id))
-    }, [todos])
+    }
 
     
-    const addTodo = (title: string, setTitle: Function): void => {
+    const addTodo = (title: string, setTitle: (title: string) => void): void => {
         setTodos(prev => [
             {
                 id: Math.random() * 1000,
@@ -56,8 +54,8 @@ const Home = () => {
             <CreateTodoField addTodo={addTodo}/>
             <List
                 todos={todos}
-                changeTodo={changeTodo}
-                removeTodo={removeTodo}    
+                change={changeTodo}
+                remove={removeTodo}    
             />
             {!todos.length && 
                 <EmptyList/>
