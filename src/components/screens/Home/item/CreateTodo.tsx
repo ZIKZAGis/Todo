@@ -1,18 +1,14 @@
-import React, { useState} from "react"
+import React, { useState, FC} from "react"
 import { VscAdd } from "react-icons/vsc"
+import { EvtKey, AddTodoFunction } from "../../../types/types"
 
-type AddTodo = {
-    addTodo: (title: string, setTitle: React.Dispatch<React.SetStateAction<string>>) => void
-}
+const CreateTodoField: FC<AddTodoFunction> = ({addTodo}) => {
+    const [title, setTitle] = useState<string>('')
 
-type Evt = {
-    key: string
-}
+    const ICON_SIZE = 22
+    const LengthСheck = !!title.length
 
-const CreateTodoField = ({addTodo}: AddTodo) => {
-    const [title, setTitle] = useState('')
-
-    const onKeyDown = (evt: Evt) => {
+    const onKeyDown = (evt: EvtKey) => {
         if(evt.key === 'Enter' && title.length) {
             addTodo(title, setTitle)
         }
@@ -28,9 +24,9 @@ const CreateTodoField = ({addTodo}: AddTodo) => {
                 onKeyDown={onKeyDown}  
                 placeholder="Введите задачу"  
             />
-            {!!title.length &&
+            {LengthСheck &&
                 <button className="pl-4" onClick={() => addTodo(title, setTitle)}>
-                    <VscAdd size={22} className='text-gray-300 hover:text-green-600 transition-colors ease-in-out duration-300'/>
+                    <VscAdd size={ICON_SIZE} className='text-gray-300 hover:text-green-600 transition-colors ease-in-out duration-300'/>
                 </button>
             }
         </div>

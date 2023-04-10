@@ -25,3 +25,11 @@ export interface TodoProps {
 export interface CheckProps {
     isCompleted: boolean
 }
+
+export type EvtKey = {
+    key: string
+}
+
+export type AddTodoFunction = {
+    addTodo: (title: string, setTitle: (str: string) => void) => void
+}

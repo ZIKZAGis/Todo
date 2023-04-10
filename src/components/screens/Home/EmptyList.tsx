@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {FC} from 'react'
 import { FaScroll } from "react-icons/fa"
 
-const EmptyList = () => {
+const EmptyList: FC = () => {
     const SIZE = 22
 
     return (
