@@ -1,28 +1,24 @@
 import { useState } from "react"
 import { VscAdd } from "react-icons/vsc"
+import { addTodo } from "../../../../features/todoSlice"
+import { v4 } from "uuid"
+import { useDispatch } from "react-redux"
 
-const CreateTodoField = ({setTodos}) => {
+const CreateTodoField = () => {
+    const dispatch = useDispatch()
     const [title, setTitle] = useState('')
 
-    const onKeyDown = (evt) => {
-        if(evt.key === 'Enter' && title.length) {
-            addTodo(title)
+    const addTodoHandler = () => {
+        const todo = {
+            id: v4(),
+            text: title,
+            completed: false
         }
-    }
-    
-    const addTodo = (title) => {
-        setTodos(prev => [
-            {
-                id: new Date(),
-                title: title,
-                completed: false 
-            },
-            ...prev
-        ])
 
+        dispatch(addTodo(todo))
         setTitle('')
     }
-
+    
     return (
         <div className="flex justify-between items-center mb-10 rounded-xl border-gray-800 border-2 w-full px-5 py-3 mt-8">
             <input 
@@ -30,11 +26,11 @@ const CreateTodoField = ({setTodos}) => {
                 type="text" 
                 onChange={evt => setTitle(evt.target.value)} 
                 value={title}
-                onKeyDown={onKeyDown}  
-                placeholder="Введите задачу"  
+                onKeyDown={(e) => e.key === 'Enter' && title.length ? addTodoHandler() : ''}  
+                placeholder="Add todo"  
             />
             {!!title.length &&
-                <button className="pl-4" onClick={() => addTodo(title)}>
+                <button className="pl-4" onClick={addTodoHandler}>
                     <VscAdd size={22} className='text-gray-300 hover:text-green-600 transition-colors ease-in-out duration-300'/>
                 </button>
             }
