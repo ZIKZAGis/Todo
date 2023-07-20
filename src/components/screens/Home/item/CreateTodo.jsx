@@ -12,7 +12,7 @@ const CreateTodoField = () => {
         const todo = {
             id: v4(),
             text: title,
-            completed: false
+            completed: false,
         }
 
         dispatch(addTodo(todo))

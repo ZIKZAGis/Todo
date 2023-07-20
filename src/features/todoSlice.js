@@ -5,27 +5,27 @@ const initialState = {
         {
             "id": 1,
             "text": "Walk the dog",
-            "completed": false
+            "completed": false,
           },
           {
             "id": 2,
             "text": "Refactor old code",
-            "completed": false
+            "completed": false,
           },
           {
             "id": 3,
             "text": "learn typeScript",
-            "completed": false
+            "completed": false,
           },
           {
             "id": 4,
             "text": "Try redux-toolkit",
-            "completed": true
+            "completed": true,
           },
           {
             "id": 5,
             "text": "Go on vacation",
-            "completed": false
+            "completed": false,
           },
     ]
 }
@@ -43,7 +43,7 @@ export const todoSlice = createSlice({
         },
         removeTodo: (state, action) => {
             state.todos = state.todos.filter((todo) => todo.id !== action.payload)
-        },
+        }
     }
 })
 
